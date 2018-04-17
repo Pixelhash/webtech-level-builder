@@ -9,7 +9,7 @@ public class TileButtonListener implements ActionListener {
 
     private View view;
 
-    public TileButtonListener(View view) {
+    TileButtonListener(View view) {
         this.view = view;
     }
 
@@ -25,19 +25,16 @@ public class TileButtonListener implements ActionListener {
         }
 
         Tile tile = tileOptional.get();
-
-        JComboBox cbLevelTypes = view.getCbLevelTypes();
-        int levelTypeIndex = cbLevelTypes.getSelectedIndex();
-        LevelType levelType = LevelType.fromIndex(levelTypeIndex);
+        TileType tileType = TileType.fromIndex(view.getSelectecLevelTypeIndex());
 
         // check if index exists
-        if (levelType == null) {
+        if (tileType == null) {
             JOptionPane.showMessageDialog(view, "Selected level type is invalid!");
             return;
         }
 
         // update tile and button
-        tile.levelType = levelType;
-        button.setText(levelType.abbreviation);
+        tile.tileType = tileType;
+        button.setText(tileType.abbreviation);
     }
 }

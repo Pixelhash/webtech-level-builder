@@ -10,11 +10,26 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Executes of the "Export" button is pressed.
+ * Allows you to export the level as JSON document.
+ *
+ * @author Marc-Niclas H. (codehat)
+ */
 public class ExportButtonListener implements ActionListener {
 
+    /**
+     * the view instance
+     */
     private View view;
 
-    public ExportButtonListener(View view) {
+    /**
+     * Creates a new {@link ExportButtonListener}.
+     * The view is needed to fetch all visual elements such as buttons.
+     *
+     * @param view the view
+     */
+    ExportButtonListener(View view) {
         this.view = view;
     }
 
@@ -23,8 +38,8 @@ public class ExportButtonListener implements ActionListener {
         Level level = new Level();
 
         long goals = view.getTiles().stream()
-                .map(tile -> tile.levelType)
-                .filter(levelType -> levelType == LevelType.GOAL)
+                .map(tile -> tile.tileType)
+                .filter(levelType -> levelType == TileType.GOAL)
                 .count();
 
         if (goals == 0) {
@@ -36,14 +51,10 @@ public class ExportButtonListener implements ActionListener {
         Tile[] tiles = new Tile[view.getTiles().size()];
         tiles = view.getTiles().toArray(tiles);
 
-        // convert time to int
-        String timeString = view.getSpLevelTime().getValue().toString();
-        int time = Integer.parseInt(timeString.trim());
-
         level.possibleGoals = Math.toIntExact(goals);
-        level.name = view.getTfLevelName().getText();
-        level.nameClean = view.getTfLevelNameClean().getText();
-        level.time = time;
+        level.name = view.getLevelName();
+        level.nameClean = view.getLevelNameClean();
+        level.time = view.getLevelTime();
         level.tiles = tiles;
 
         // build JSON string

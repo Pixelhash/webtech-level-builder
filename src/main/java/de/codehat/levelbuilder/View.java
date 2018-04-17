@@ -2,25 +2,76 @@ package de.codehat.levelbuilder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class View extends JFrame {
+/**
+ * Represents the view of the level builder.
+ *
+ * @author Marc-Niclas H. (codehat)
+ *
+ */
+class View extends JFrame {
 
+    /**
+     * amount of rows
+     */
     private int levelRows;
+
+    /**
+     * amount of columns
+     */
     private int levelCols;
 
+    /**
+     * textfield for the level name
+     */
     private JTextField tfLevelName;
+
+    /**
+     * textfield for the clean level name
+     */
     private JTextField tfLevelNameClean;
+
+    /**
+     * field for the max-level-completion time
+     */
     private JSpinner spLevelTime;
+
+    /**
+     * selection of all possible tile types
+     */
     private JComboBox<String> cbLevelTypes;
+
+    /**
+     * button to export the level as JSON file
+     */
     private JButton bExport;
 
+    /**
+     * panel holding the input fields
+     */
     private JPanel pFields;
+
+    /**
+     * panel holding the tiles (represented as buttons)
+     */
     private JPanel pTiles;
 
+    /**
+     * list holding all tiles with their information
+     */
     private List<Tile> tiles = new ArrayList<>();
 
+    /**
+     * Creates a new view object with the given window information.
+     *
+     * @param width window width
+     * @param height windows height
+     * @param levelRows amount of rows
+     * @param levelCols amount of columns
+     */
     public View(int width, int height, int levelRows, int levelCols) {
         super();
 
@@ -34,6 +85,9 @@ public class View extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    /**
+     * Initialises all components of the window.
+     */
     private void initComponents() {
         setLayout(new BorderLayout());
 
@@ -61,7 +115,7 @@ public class View extends JFrame {
         pFields.add(spLevelTime);
 
         // level types
-        cbLevelTypes = new JComboBox<>(LevelType.TYPES);
+        cbLevelTypes = new JComboBox<>(TileType.TYPES);
         cbLevelTypes.setSelectedIndex(0);
         pFields.add(cbLevelTypes);
 
@@ -73,34 +127,64 @@ public class View extends JFrame {
         for (int x = 0; x < levelRows; x++) {
             for (int y = 0; y < levelCols; y++) {
                 JButton button = new JButton("t");
-                Tile tile = new Tile(x, y, button, LevelType.TERRAIN);
+                Tile tile = new Tile(x, y, button, TileType.TERRAIN);
                 tiles.add(tile);
                 pTiles.add(button);
             }
         }
     }
 
-    public JTextField getTfLevelName() {
-        return tfLevelName;
+    /**
+     * Returns the level name.
+     *
+     * @return the level name
+     */
+    String getLevelName() {
+        return tfLevelName.getText();
     }
 
-    public JTextField getTfLevelNameClean() {
-        return tfLevelNameClean;
+    /**
+     * Returns the clean level name.
+     *
+     * @return the clean level name
+     */
+    String getLevelNameClean() {
+        return tfLevelNameClean.getText();
     }
 
-    public JSpinner getSpLevelTime() {
-        return spLevelTime;
+    /**
+     * Returns the max-level-completion time.
+     *
+     * @return the max-level-completion time
+     */
+    int getLevelTime() {
+        return Integer.parseInt(spLevelTime.getValue().toString());
     }
 
-    public JComboBox getCbLevelTypes() {
-        return cbLevelTypes;
+    /**
+     * Returns the index of the currently selected item.
+     *
+     * @return index of the currently selected item
+     */
+    int getSelectecLevelTypeIndex() {
+        return cbLevelTypes.getSelectedIndex();
     }
 
-    public JButton getbExport() {
-        return bExport;
+    /**
+     * Sets the action listener of the "Export" button.
+     *
+     * @param listener the action listener
+     */
+    void setExportButtonListener(ActionListener listener) {
+        bExport.addActionListener(listener);
     }
 
-    public List<Tile> getTiles() {
+    /**
+     * Returns the list of tiles.
+     *
+     * @return the list of tiles
+     */
+    List<Tile> getTiles() {
         return tiles;
     }
 }

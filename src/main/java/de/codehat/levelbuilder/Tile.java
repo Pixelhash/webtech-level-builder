@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import javax.swing.*;
 
-public class Tile {
+class Tile {
 
     @Expose
     Position position;
@@ -14,11 +14,11 @@ public class Tile {
 
     @Expose
     @SerializedName("type")
-    LevelType levelType;
+    TileType tileType;
 
-    public Tile(int x, int y, JButton button, LevelType levelType) {
+    Tile(int x, int y, JButton button, TileType tileType) {
         this.position = new Position(x, y);
         this.button = button;
-        this.levelType = levelType;
+        this.tileType = tileType;
     }
 }

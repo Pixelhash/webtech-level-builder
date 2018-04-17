@@ -39,11 +39,14 @@ public class Controller {
     }
 
     /**
-     * the view instance
+     * The view instance
      */
     private View view;
 
-    public Controller() {
+    /**
+     * Creates the controller of the level builder.
+     */
+    private Controller() {
         view = new View(WIDTH, HEIGHT, LEVEL_ROWS, LEVEL_COLS);
 
         setViewListener();
@@ -51,15 +54,18 @@ public class Controller {
         view.setVisible(true);
     }
 
+    /**
+     * Sets the action listener of the buttons from the view.
+     */
     private void setViewListener() {
         TileButtonListener tileButtonListener = new TileButtonListener(view);
         ExportButtonListener exportButtonListener = new ExportButtonListener(view);
 
-        view.getTiles().stream().map(tile -> tile.button).forEach(button -> {
-            button.addActionListener(tileButtonListener);
-        });
+        view.getTiles().stream()
+                .map(tile -> tile.button)
+                .forEach(button -> button.addActionListener(tileButtonListener));
 
-        view.getbExport().addActionListener(exportButtonListener);
+        view.setExportButtonListener(exportButtonListener);
     }
 
 }

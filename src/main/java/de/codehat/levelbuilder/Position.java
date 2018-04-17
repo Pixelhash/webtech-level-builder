@@ -2,15 +2,32 @@ package de.codehat.levelbuilder;
 
 import com.google.gson.annotations.Expose;
 
-public class Position {
+/**
+ * Represents the position of a tile in a level.
+ *
+ * @author Marc-Niclas H. (codehat)
+ */
+class Position {
 
+    /**
+     * x-coordinate
+     */
     @Expose
-    int row;
+    private int row;
 
+    /**
+     * y-coordinate
+     */
     @Expose
-    int col;
+    private int col;
 
-    public Position(int row, int col) {
+    /**
+     * Creates a new position with two coordinates.
+     *
+     * @param row as x-coordinate
+     * @param col as y-coordinate
+     */
+    Position(int row, int col) {
         this.row = row;
         this.col = col;
     }
