@@ -10,6 +10,16 @@ import javax.swing.*;
 public class Controller {
 
     /**
+     * program name
+     */
+    private static final String NAME = "LevelBuilder";
+
+    /**
+     * program version
+     */
+    private static final String VERSION = "v1.0.1";
+
+    /**
      * window width
      */
     private static final int WIDTH = 400;
@@ -51,6 +61,7 @@ public class Controller {
 
         setViewListener();
 
+        view.setTitle(NAME + " " + VERSION);
         view.setVisible(true);
     }
 
