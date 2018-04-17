@@ -82,7 +82,7 @@ class View extends JFrame {
 
         setSize(width, height);
         setLocationRelativeTo(null); // center frame on start
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     /**
@@ -91,13 +91,20 @@ class View extends JFrame {
     private void initComponents() {
         setLayout(new BorderLayout());
 
+        // fields grid layout
+        GridLayout pFieldsGrid = new GridLayout(2, 3);
+        pFieldsGrid.setHgap(5);
+        pFieldsGrid.setVgap(5);
+
         // fields panel
         pFields = new JPanel();
-        pFields.setLayout(new GridLayout(2, 3));
+        pFields.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pFields.setLayout(pFieldsGrid);
         add(pFields, BorderLayout.PAGE_START);
 
         // tile buttons panel
         pTiles = new JPanel();
+        pTiles.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pTiles.setLayout(new GridLayout(levelRows, levelCols));
         add(pTiles, BorderLayout.CENTER);
 
@@ -128,6 +135,9 @@ class View extends JFrame {
             for (int y = 0; y < levelCols; y++) {
                 JButton button = new JButton("t");
                 Tile tile = new Tile(x, y, button, TileType.TERRAIN);
+                button.setOpaque(true);
+                button.setForeground(tile.tileType.foregroundColor);
+                button.setBackground(tile.tileType.backgroundColor);
                 tiles.add(tile);
                 pTiles.add(button);
             }

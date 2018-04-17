@@ -45,6 +45,13 @@ public class Controller {
      * @param args program arguments
      */
     public static void main(String[] args) {
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException e) {
+//            System.err.println("Unable to get and set look and feel of this system!");
+//            e.printStackTrace();
+//        }
+
         SwingUtilities.invokeLater(Controller::new);
     }
 

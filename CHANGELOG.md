@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased] - 1.0.1
 ### Added
 - Add name and version of program to window title.
+- Enclose and outsource level export function to "Level" class.
+- Add some padding to input elements.
+- Add specific tile type colors to tile buttons.
 
 ## [1.0.0] - 2018-04-17
 ### Added

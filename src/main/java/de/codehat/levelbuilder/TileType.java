@@ -1,5 +1,6 @@
 package de.codehat.levelbuilder;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -9,10 +10,10 @@ import java.util.Optional;
  * @author Marc-Niclas H. (codehat)
  */
 public enum TileType {
-    TERRAIN("t"),
-    HEDGE("h"),
-    START("s"),
-    GOAL("g");
+    TERRAIN("t", Color.WHITE, new Color(128, 64, 0)), // brown
+    HEDGE("h", Color.BLACK, Color.GREEN),
+    START("s", Color.WHITE, Color.BLUE),
+    GOAL("g", Color.WHITE, Color.RED);
 
     /**
      * all types as human-readable names
@@ -25,12 +26,24 @@ public enum TileType {
     final String abbreviation;
 
     /**
+     * color of the button's text
+     */
+    final Color foregroundColor;
+
+    /**
+     * background color of the button in view
+     */
+    final Color backgroundColor;
+
+    /**
      * Defines a tile type with a specific abbreviation.
      *
      * @param abbreviation the short name of that type
      */
-    TileType(String abbreviation) {
+    TileType(String abbreviation, Color foregroundColor, Color backgroundColor) {
         this.abbreviation = abbreviation;
+        this.foregroundColor = foregroundColor;
+        this.backgroundColor = backgroundColor;
     }
 
     /**

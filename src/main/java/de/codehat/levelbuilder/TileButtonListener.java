@@ -36,5 +36,7 @@ public class TileButtonListener implements ActionListener {
         // update tile and button
         tile.tileType = tileType;
         button.setText(tileType.abbreviation);
+        button.setForeground(tileType.foregroundColor);
+        button.setBackground(tileType.backgroundColor);
     }
 }
