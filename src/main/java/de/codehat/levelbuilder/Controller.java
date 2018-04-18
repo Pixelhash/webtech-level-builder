@@ -22,7 +22,7 @@ public class Controller {
     /**
      * window width
      */
-    private static final int WIDTH = 400;
+    private static final int WIDTH = 500;
 
     /**
      * window height

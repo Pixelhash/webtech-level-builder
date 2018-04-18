@@ -72,7 +72,7 @@ class View extends JFrame {
      * @param levelRows amount of rows
      * @param levelCols amount of columns
      */
-    public View(int width, int height, int levelRows, int levelCols) {
+    View(int width, int height, int levelRows, int levelCols) {
         super();
 
         this.levelRows = levelRows;
@@ -109,16 +109,15 @@ class View extends JFrame {
         add(pTiles, BorderLayout.CENTER);
 
         // level name
-        tfLevelName = new JTextField("Level Name");
+        tfLevelName = new JTextField("level_name");
         pFields.add(tfLevelName);
 
         // level name clean
-        tfLevelNameClean = new JTextField("Level Name clean");
+        tfLevelNameClean = new JTextField("Level Name Clean");
         pFields.add(tfLevelNameClean);
 
         // level time
-        spLevelTime = new JSpinner();
-        spLevelTime.setValue(15);
+        spLevelTime = new JSpinner(new SpinnerNumberModel(15, 1, 120, 1));
         pFields.add(spLevelTime);
 
         // level types
@@ -135,13 +134,29 @@ class View extends JFrame {
             for (int y = 0; y < levelCols; y++) {
                 JButton button = new JButton("t");
                 Tile tile = new Tile(x, y, button, TileType.TERRAIN);
-                button.setOpaque(true);
+                //button.setOpaque(true);
                 button.setForeground(tile.tileType.foregroundColor);
                 button.setBackground(tile.tileType.backgroundColor);
                 tiles.add(tile);
                 pTiles.add(button);
             }
         }
+    }
+
+    /**
+     * Checks if all necessary input fields aren't empty.
+     *
+     * @return true if no field is empty, false if at least one field is empty
+     */
+    boolean areFieldsNotEmpty() {
+        if (tfLevelName.getText().isEmpty()) {
+            return false;
+        } else if (tfLevelNameClean.getText().isEmpty()) {
+            return false;
+        } else if (spLevelTime.getValue().toString().isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     /**

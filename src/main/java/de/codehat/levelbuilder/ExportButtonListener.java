@@ -1,6 +1,7 @@
 package de.codehat.levelbuilder;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -30,6 +31,15 @@ public class ExportButtonListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        // check if all input fields are filled
+        if (!view.areFieldsNotEmpty()) {
+            JOptionPane.showMessageDialog(view,
+                    "Make sure you have filled all input fields!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         Level level = new Level();
 
         long goals = view.getTiles().stream()
@@ -38,7 +48,10 @@ public class ExportButtonListener implements ActionListener {
                 .count();
 
         if (goals == 0) {
-            JOptionPane.showMessageDialog(view, "At least one goal is required!");
+            JOptionPane.showMessageDialog(view,
+                    "At least one goal is required!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -55,12 +68,17 @@ public class ExportButtonListener implements ActionListener {
 
         // open save file dialog
         JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setSelectedFile(new File(level.name + ".json"));
+        jFileChooser.setFileFilter(new FileNameExtensionFilter("JSON file", "json"));
         if (jFileChooser.showSaveDialog(view) == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser.getSelectedFile();
             if (level.export(file)) {
                 JOptionPane.showMessageDialog(view, "Saved file to " + file.getAbsolutePath());
             } else {
-                JOptionPane.showMessageDialog(view, "Unable to save file!");
+                JOptionPane.showMessageDialog(view,
+                        "Unable to save file!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
