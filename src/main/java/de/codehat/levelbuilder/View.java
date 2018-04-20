@@ -83,14 +83,14 @@ class View extends JFrame {
         setSize(width, height);
         setLocationRelativeTo(null); // center frame on start
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        setName("mainFrame");
     }
 
     /**
      * Initialises all components of the window.
      */
     private void initComponents() {
-        setLayout(new BorderLayout());
-
         // fields grid layout
         GridLayout pFieldsGrid = new GridLayout(2, 3);
         pFieldsGrid.setHgap(5);
@@ -110,23 +110,28 @@ class View extends JFrame {
 
         // level name
         tfLevelName = new JTextField("level_name");
+        tfLevelName.setName("levelName");
         pFields.add(tfLevelName);
 
         // level name clean
         tfLevelNameClean = new JTextField("Level Name Clean");
+        tfLevelNameClean.setName("levelNameClean");
         pFields.add(tfLevelNameClean);
 
         // level time
         spLevelTime = new JSpinner(new SpinnerNumberModel(15, 1, 120, 1));
+        spLevelTime.setName("levelTime");
         pFields.add(spLevelTime);
 
         // level types
         cbLevelTypes = new JComboBox<>(TileType.TYPES);
+        cbLevelTypes.setName("levelTypes");
         cbLevelTypes.setSelectedIndex(0);
         pFields.add(cbLevelTypes);
 
         // export level button
         bExport = new JButton("Export");
+        bExport.setName("exportButton");
         pFields.add(bExport);
 
         // create all required level tiles as buttons
@@ -134,6 +139,7 @@ class View extends JFrame {
             for (int y = 0; y < levelCols; y++) {
                 JButton button = new JButton("t");
                 Tile tile = new Tile(x, y, button, TileType.TERRAIN);
+                button.setName("tileButton" + x + y);
                 //button.setOpaque(true);
                 button.setForeground(tile.tileType.foregroundColor);
                 button.setBackground(tile.tileType.backgroundColor);

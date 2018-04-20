@@ -63,7 +63,7 @@ public class Controller {
     /**
      * Creates the controller of the level builder.
      */
-    private Controller() {
+    Controller() {
         view = new View(WIDTH, HEIGHT, LEVEL_ROWS, LEVEL_COLS);
 
         setViewListener();
@@ -86,4 +86,12 @@ public class Controller {
         view.setExportButtonListener(exportButtonListener);
     }
 
+    /**
+     * Returns the view instance
+     *
+     * @return the view
+     */
+    View getView() {
+        return view;
+    }
 }
