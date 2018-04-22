@@ -78,13 +78,13 @@ class View extends JFrame {
         this.levelRows = levelRows;
         this.levelCols = levelCols;
 
-        initComponents();
-
         setSize(width, height);
         setLocationRelativeTo(null); // center frame on start
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setName("mainFrame");
+
+        initComponents();
     }
 
     /**

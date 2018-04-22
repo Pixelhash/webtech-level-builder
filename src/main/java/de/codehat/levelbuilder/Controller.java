@@ -17,7 +17,7 @@ public class Controller {
     /**
      * program version
      */
-    private static final String VERSION = "v1.0.1";
+    private static final String VERSION = "v1.1.0";
 
     /**
      * window width
