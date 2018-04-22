@@ -22,4 +22,12 @@ public class BasicTest extends AssertJSwingJUnitTestCase {
         window.optionPane().requireErrorMessage();
     }
 
+    @Test
+    public void clickExportButtonWithOneGoal() {
+        window.comboBox("levelTypes").selectItem(3);
+        window.button("tileButton00").click();
+        window.button("exportButton").click();
+        window.dialog().requireModal();
+    }
+
 }
