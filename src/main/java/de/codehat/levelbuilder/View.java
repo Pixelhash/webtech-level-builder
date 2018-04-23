@@ -218,4 +218,22 @@ class View extends JFrame {
     List<Tile> getTiles() {
         return tiles;
     }
+
+    /**
+     * Returns the amount of tile rows.
+     *
+     * @return the amount of tile rows.
+     */
+    public int getLevelRows() {
+        return levelRows;
+    }
+
+    /**
+     * Returns the amount of tile columns.
+     *
+     * @return the amount of tile columns.
+     */
+    public int getLevelCols() {
+        return levelCols;
+    }
 }

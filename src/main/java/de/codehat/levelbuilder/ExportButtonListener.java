@@ -60,10 +60,12 @@ public class ExportButtonListener implements ActionListener {
         tiles = view.getTiles().toArray(tiles);
 
         // set level
-        level.possibleGoals = Math.toIntExact(goals);
         level.name = view.getLevelName();
         level.nameClean = view.getLevelNameClean();
         level.time = view.getLevelTime();
+        level.possibleGoals = Math.toIntExact(goals);
+        level.rows = view.getLevelRows();
+        level.cols = view.getLevelCols();
         level.tiles = tiles;
 
         // open save file dialog

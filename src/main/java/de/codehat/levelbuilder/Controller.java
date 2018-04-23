@@ -17,7 +17,7 @@ public class Controller {
     /**
      * program version
      */
-    private static final String VERSION = "v1.1.0";
+    private static final String VERSION = "1.1.0";
 
     /**
      * window width
@@ -32,12 +32,12 @@ public class Controller {
     /**
      * amount of tile rows
      */
-    private static final int LEVEL_ROWS = 8;
+    private int levelRows;
 
     /**
      * amount of tile columns
      */
-    private static final int LEVEL_COLS = 8;
+    private int levelCols;
 
     /**
      * Initiates the level builder.
@@ -64,11 +64,13 @@ public class Controller {
      * Creates the controller of the level builder.
      */
     Controller() {
-        view = new View(WIDTH, HEIGHT, LEVEL_ROWS, LEVEL_COLS);
+        askForRowsAndCols();
+
+        view = new View(WIDTH, HEIGHT, levelRows, levelCols);
 
         setViewListener();
 
-        view.setTitle(NAME + " " + VERSION);
+        view.setTitle(String.format("%s v%s - Size: %d x %d", NAME, VERSION, levelRows, levelCols));
         view.setVisible(true);
     }
 
@@ -84,6 +86,29 @@ public class Controller {
                 .forEach(button -> button.addActionListener(tileButtonListener));
 
         view.setExportButtonListener(exportButtonListener);
+    }
+
+    /**
+     * Asks the user to set the amount of tile rows and tile columns.
+     */
+    private void askForRowsAndCols() {
+        JSpinner sRows = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
+        JSpinner sCols = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
+        Object[] message = {
+                "Tile Rows (6-12):", sRows,
+                "Tile Cols (6-12):", sCols
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Level Size", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            levelRows = Integer.valueOf(sRows.getValue().toString());
+            levelCols = Integer.valueOf(sCols.getValue().toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "Using default values (rows: 8, cols: 8).");
+
+            levelRows = 8;
+            levelCols = 8;
+        }
     }
 
     /**

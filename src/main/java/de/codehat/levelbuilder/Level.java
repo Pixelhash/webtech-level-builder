@@ -42,6 +42,18 @@ class Level {
     int possibleGoals;
 
     /**
+     * amount of tile rows
+     */
+    @Expose
+    int rows;
+
+    /**
+     * amount of tile columns
+     */
+    @Expose
+    int cols;
+
+    /**
      * array of tiles representing the level itself
      */
     @Expose
