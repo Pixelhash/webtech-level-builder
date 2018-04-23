@@ -50,6 +50,11 @@ class View extends JFrame {
     private JButton bExport;
 
     /**
+     * button to adjust settings
+     */
+    private JButton bSettings;
+
+    /**
      * panel holding the input fields
      */
     private JPanel pFields;
@@ -134,12 +139,34 @@ class View extends JFrame {
         bExport.setName("exportButton");
         pFields.add(bExport);
 
-        // create all required level tiles as buttons
+        // settingsButton
+        bSettings = new JButton("Settings");
+        bSettings.setName("settingsButton");
+        pFields.add(bSettings);
+
+        generateTileButtons(false);
+    }
+
+    /**
+     * Create all required level tiles as buttons
+     *
+     * @param shouldRegenerate deletes old buttons if true, otherwise not.
+     */
+    void generateTileButtons(boolean shouldRegenerate) {
+        ActionListener listener = null;
+        if (shouldRegenerate) {
+            listener = tiles.get(0).button.getActionListeners()[0];
+            tiles.stream().map(t -> t.button).forEach(b -> pTiles.remove(b));
+            tiles.clear();
+            pTiles.setLayout(new GridLayout(levelRows, levelCols));
+        }
+
         for (int x = 0; x < levelRows; x++) {
             for (int y = 0; y < levelCols; y++) {
                 JButton button = new JButton("t");
                 Tile tile = new Tile(x, y, button, TileType.TERRAIN);
                 button.setName("tileButton" + x + y);
+                if (shouldRegenerate) button.addActionListener(listener);
                 //button.setOpaque(true);
                 button.setForeground(tile.tileType.foregroundColor);
                 button.setBackground(tile.tileType.backgroundColor);
@@ -155,14 +182,33 @@ class View extends JFrame {
      * @return true if no field is empty, false if at least one field is empty
      */
     boolean areFieldsNotEmpty() {
-        if (tfLevelName.getText().isEmpty()) {
-            return false;
-        } else if (tfLevelNameClean.getText().isEmpty()) {
-            return false;
-        } else if (spLevelTime.getValue().toString().isEmpty()) {
-            return false;
+        return !tfLevelName.getText().isEmpty() && !tfLevelNameClean.getText().isEmpty()
+                && !spLevelTime.getValue().toString().isEmpty();
+    }
+
+    /**
+     * Asks the user to set the amount of tile rows and tile columns.
+     */
+    void askForRowsAndCols() {
+        JSpinner sRows = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
+        JSpinner sCols = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
+        Object[] message = {
+                "Tile Rows (6-12):", sRows,
+                "Tile Cols (6-12):", sCols
+        };
+
+        int option = JOptionPane.showConfirmDialog(this, message, "Level Size", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            levelRows = Integer.valueOf(sRows.getValue().toString());
+            levelCols = Integer.valueOf(sCols.getValue().toString());
         }
-        return true;
+    }
+
+    /**
+     * Updates the title according to amount of tile rows/cols.
+     */
+    void updateTitle() {
+        setTitle(String.format("%s v%s - Size: %d x %d", Controller.NAME, Controller.VERSION, levelRows, levelCols));
     }
 
     /**
@@ -208,6 +254,15 @@ class View extends JFrame {
      */
     void setExportButtonListener(ActionListener listener) {
         bExport.addActionListener(listener);
+    }
+
+    /**
+     * Sets the action listener of the "Settings" button.
+     *
+     * @param listener the action listener
+     */
+    void setSettingsButtonListener(ActionListener listener) {
+        bSettings.addActionListener(listener);
     }
 
     /**

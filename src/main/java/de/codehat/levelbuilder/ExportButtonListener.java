@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
- * Executes of the "Export" button is pressed.
+ * Executes if the "Export" button is pressed.
  * Allows you to export the level as JSON document.
  *
  * @author Marc-Niclas H. (codehat)

@@ -12,12 +12,12 @@ public class Controller {
     /**
      * program name
      */
-    private static final String NAME = "LevelBuilder";
+    static final String NAME = "LevelBuilder";
 
     /**
      * program version
      */
-    private static final String VERSION = "1.1.0";
+    static final String VERSION = "1.1.0";
 
     /**
      * window width
@@ -32,12 +32,12 @@ public class Controller {
     /**
      * amount of tile rows
      */
-    private int levelRows;
+    private static final int DEFAULT_LEVEL_ROWS = 8;
 
     /**
      * amount of tile columns
      */
-    private int levelCols;
+    private static final int DEFAULT_LEVEL_COLS = 8;
 
     /**
      * Initiates the level builder.
@@ -64,13 +64,11 @@ public class Controller {
      * Creates the controller of the level builder.
      */
     Controller() {
-        askForRowsAndCols();
-
-        view = new View(WIDTH, HEIGHT, levelRows, levelCols);
+        view = new View(WIDTH, HEIGHT, DEFAULT_LEVEL_ROWS, DEFAULT_LEVEL_COLS);
 
         setViewListener();
 
-        view.setTitle(String.format("%s v%s - Size: %d x %d", NAME, VERSION, levelRows, levelCols));
+        view.updateTitle();
         view.setVisible(true);
     }
 
@@ -79,36 +77,13 @@ public class Controller {
      */
     private void setViewListener() {
         TileButtonListener tileButtonListener = new TileButtonListener(view);
-        ExportButtonListener exportButtonListener = new ExportButtonListener(view);
 
         view.getTiles().stream()
                 .map(tile -> tile.button)
                 .forEach(button -> button.addActionListener(tileButtonListener));
 
-        view.setExportButtonListener(exportButtonListener);
-    }
-
-    /**
-     * Asks the user to set the amount of tile rows and tile columns.
-     */
-    private void askForRowsAndCols() {
-        JSpinner sRows = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
-        JSpinner sCols = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
-        Object[] message = {
-                "Tile Rows (6-12):", sRows,
-                "Tile Cols (6-12):", sCols
-        };
-
-        int option = JOptionPane.showConfirmDialog(null, message, "Level Size", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION) {
-            levelRows = Integer.valueOf(sRows.getValue().toString());
-            levelCols = Integer.valueOf(sCols.getValue().toString());
-        } else {
-            JOptionPane.showMessageDialog(null, "Using default values (rows: 8, cols: 8).");
-
-            levelRows = 8;
-            levelCols = 8;
-        }
+        view.setExportButtonListener(new ExportButtonListener(view));
+        view.setSettingsButtonListener(new SettingsListener(view));
     }
 
     /**

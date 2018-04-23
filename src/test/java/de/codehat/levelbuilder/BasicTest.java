@@ -30,4 +30,10 @@ public class BasicTest extends AssertJSwingJUnitTestCase {
         window.dialog().requireModal();
     }
 
+    @Test
+    public void clickSettingsButton() {
+        window.button("settingsButton").click();
+        window.optionPane().requireTitle("Level Size");
+    }
+
 }
