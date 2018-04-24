@@ -10,7 +10,7 @@ import javax.swing.JButton;
  *
  * @author Marc-Niclas H. (codehat)
  */
-public class Tile {
+public final class Tile {
 
     /**
      * The position of the tile in the level.
@@ -97,5 +97,20 @@ public class Tile {
      */
     public void setTileType(final TileType tileType) {
         this.tileType = tileType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        Tile t = (Tile) o;
+        return position.equals(t.position) && button.equals(t.getButton())
+                && tileType == t.getTileType();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{ Pos: %s, Type: %s }", position, tileType);
     }
 }

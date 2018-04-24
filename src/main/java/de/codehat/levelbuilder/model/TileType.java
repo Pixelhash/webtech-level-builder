@@ -116,6 +116,11 @@ public enum TileType {
         return backgroundColor;
     }
 
+    @Override
+    public String toString() {
+        return this.name();
+    }
+
     /**
      * Returns the tile type for a given abbreviation.
      *

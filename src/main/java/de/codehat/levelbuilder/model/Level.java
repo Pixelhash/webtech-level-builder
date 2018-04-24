@@ -7,6 +7,7 @@ import com.google.gson.annotations.Expose;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Represents a level.
@@ -15,7 +16,7 @@ import java.io.IOException;
  *
  * @author Marc-Niclas H. (codehat)
  */
-public class Level {
+public final class Level {
 
     /**
      * Level name (internal name).
@@ -214,5 +215,17 @@ public class Level {
      */
     public void setTiles(final Tile[] tiles) {
         this.tiles = tiles;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        Level l = (Level) o;
+        return name.equals(l.getName()) && nameClean.equals(l.getNameClean())
+                && time == l.getTime() && possibleGoals == l.getPossibleGoals()
+                && rows == l.getRows() && cols == l.getCols()
+                && Arrays.deepEquals(tiles, l.getTiles());
     }
 }
