@@ -1,6 +1,12 @@
-package de.codehat.levelbuilder;
+package de.codehat.levelbuilder.listener;
 
-import javax.swing.*;
+import de.codehat.levelbuilder.View;
+import de.codehat.levelbuilder.model.Level;
+import de.codehat.levelbuilder.model.Tile;
+import de.codehat.levelbuilder.model.TileType;
+
+import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,10 +18,10 @@ import java.io.File;
  *
  * @author Marc-Niclas H. (codehat)
  */
-public class ExportButtonListener implements ActionListener {
+public final class ExportButtonListener implements ActionListener {
 
     /**
-     * the view instance
+     * The view instance.
      */
     private View view;
 
@@ -25,12 +31,12 @@ public class ExportButtonListener implements ActionListener {
      *
      * @param view the view
      */
-    ExportButtonListener(View view) {
+    public ExportButtonListener(final View view) {
         this.view = view;
     }
 
     @Override
-    public void actionPerformed(ActionEvent event) {
+    public void actionPerformed(final ActionEvent event) {
         // check if all input fields are filled
         if (!view.areFieldsNotEmpty()) {
             JOptionPane.showMessageDialog(view,
@@ -43,7 +49,7 @@ public class ExportButtonListener implements ActionListener {
         Level level = new Level();
 
         long goals = view.getTiles().stream()
-                .map(tile -> tile.tileType)
+                .map(Tile::getTileType)
                 .filter(tileType -> tileType == TileType.GOAL)
                 .count();
 
@@ -60,22 +66,24 @@ public class ExportButtonListener implements ActionListener {
         tiles = view.getTiles().toArray(tiles);
 
         // set level
-        level.name = view.getLevelName();
-        level.nameClean = view.getLevelNameClean();
-        level.time = view.getLevelTime();
-        level.possibleGoals = Math.toIntExact(goals);
-        level.rows = view.getLevelRows();
-        level.cols = view.getLevelCols();
-        level.tiles = tiles;
+        level.setName(view.getLevelName());
+        level.setNameClean(view.getLevelNameClean());
+        level.setTime(view.getLevelTime());
+        level.setPossibleGoals(Math.toIntExact(goals));
+        level.setRows(view.getLevelRows());
+        level.setCols(view.getLevelCols());
+        level.setTiles(tiles);
 
         // open save file dialog
         JFileChooser jFileChooser = new JFileChooser();
-        jFileChooser.setSelectedFile(new File(level.name + ".json"));
-        jFileChooser.setFileFilter(new FileNameExtensionFilter("JSON file", "json"));
+        jFileChooser.setSelectedFile(new File(level.getName() + ".json"));
+        jFileChooser.setFileFilter(
+                new FileNameExtensionFilter("JSON file", "json"));
         if (jFileChooser.showSaveDialog(view) == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser.getSelectedFile();
             if (level.export(file)) {
-                JOptionPane.showMessageDialog(view, "Saved file to " + file.getAbsolutePath());
+                JOptionPane.showMessageDialog(view,
+                        "Saved file to " + file.getAbsolutePath());
             } else {
                 JOptionPane.showMessageDialog(view,
                         "Unable to save file!",

@@ -1,7 +1,20 @@
 package de.codehat.levelbuilder;
 
-import javax.swing.*;
-import java.awt.*;
+import de.codehat.levelbuilder.model.Tile;
+import de.codehat.levelbuilder.model.TileType;
+
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JSpinner;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
+import javax.swing.BorderFactory;
+import javax.swing.SpinnerNumberModel;
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,60 +25,80 @@ import java.util.List;
  * @author Marc-Niclas H. (codehat)
  *
  */
-class View extends JFrame {
+public class View extends JFrame {
 
     /**
-     * amount of rows
+     * Amount of rows for {@link #pFields} panel.
+     */
+    private static final int FIELDS_PANEL_ROWS = 2;
+
+    /**
+     * Amount of columns for {@link #pFields} panel.
+     */
+    private static final int FIELDS_PANEL_COLS = 3;
+
+    /**
+     * Border size for all panels.
+     */
+    private static final int PANEL_BORDER_SIZE = 5;
+
+    /**
+     * Horizontal and vertical gap for panels.
+     */
+    private static final int PANEL_GAP = 5;
+
+    /**
+     * Amount of rows.
      */
     private int levelRows;
 
     /**
-     * amount of columns
+     * Amount of columns.
      */
     private int levelCols;
 
     /**
-     * textfield for the level name
+     * Textfield for the level name.
      */
     private JTextField tfLevelName;
 
     /**
-     * textfield for the clean level name
+     * Textfield for the clean level name.
      */
     private JTextField tfLevelNameClean;
 
     /**
-     * field for the max-level-completion time
+     * Field for the max-level-completion time.
      */
     private JSpinner spLevelTime;
 
     /**
-     * selection of all possible tile types
+     * Selection of all possible tile types.
      */
     private JComboBox<String> cbLevelTypes;
 
     /**
-     * button to export the level as JSON file
+     * Button to export the level as JSON file.
      */
     private JButton bExport;
 
     /**
-     * button to adjust settings
+     * Button to adjust settings.
      */
     private JButton bSettings;
 
     /**
-     * panel holding the input fields
+     * Panel holding the input fields.
      */
     private JPanel pFields;
 
     /**
-     * panel holding the tiles (represented as buttons)
+     * Panel holding the tiles (represented as buttons).
      */
     private JPanel pTiles;
 
     /**
-     * list holding all tiles with their information
+     * List holding all tiles with their information.
      */
     private List<Tile> tiles = new ArrayList<>();
 
@@ -77,7 +110,8 @@ class View extends JFrame {
      * @param levelRows amount of rows
      * @param levelCols amount of columns
      */
-    View(int width, int height, int levelRows, int levelCols) {
+    View(final int width, final int height,
+         final int levelRows, final int levelCols) {
         super();
 
         this.levelRows = levelRows;
@@ -97,19 +131,30 @@ class View extends JFrame {
      */
     private void initComponents() {
         // fields grid layout
-        GridLayout pFieldsGrid = new GridLayout(2, 3);
-        pFieldsGrid.setHgap(5);
-        pFieldsGrid.setVgap(5);
+        GridLayout pFieldsGrid = new GridLayout(FIELDS_PANEL_ROWS,
+                FIELDS_PANEL_COLS);
+        pFieldsGrid.setHgap(PANEL_GAP);
+        pFieldsGrid.setVgap(PANEL_GAP);
 
         // fields panel
         pFields = new JPanel();
-        pFields.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pFields.setBorder(BorderFactory.createEmptyBorder(
+                PANEL_BORDER_SIZE,
+                PANEL_BORDER_SIZE,
+                PANEL_BORDER_SIZE,
+                PANEL_BORDER_SIZE
+        ));
         pFields.setLayout(pFieldsGrid);
         add(pFields, BorderLayout.PAGE_START);
 
         // tile buttons panel
         pTiles = new JPanel();
-        pTiles.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pTiles.setBorder(BorderFactory.createEmptyBorder(
+                PANEL_BORDER_SIZE,
+                PANEL_BORDER_SIZE,
+                PANEL_BORDER_SIZE,
+                PANEL_BORDER_SIZE
+        ));
         pTiles.setLayout(new GridLayout(levelRows, levelCols));
         add(pTiles, BorderLayout.CENTER);
 
@@ -148,15 +193,17 @@ class View extends JFrame {
     }
 
     /**
-     * Create all required level tiles as buttons
+     * Create all required level tiles as buttons.
      *
      * @param shouldRegenerate deletes old buttons if true, otherwise not.
      */
-    void generateTileButtons(boolean shouldRegenerate) {
+    public void generateTileButtons(final boolean shouldRegenerate) {
         ActionListener listener = null;
         if (shouldRegenerate) {
-            listener = tiles.get(0).button.getActionListeners()[0];
-            tiles.stream().map(t -> t.button).forEach(b -> pTiles.remove(b));
+            listener = tiles.get(0).getButton().getActionListeners()[0];
+            tiles.stream()
+                    .map(Tile::getButton)
+                    .forEach(b -> pTiles.remove(b));
             tiles.clear();
             pTiles.setLayout(new GridLayout(levelRows, levelCols));
         }
@@ -166,10 +213,12 @@ class View extends JFrame {
                 JButton button = new JButton("t");
                 Tile tile = new Tile(x, y, button, TileType.TERRAIN);
                 button.setName("tileButton" + x + y);
-                if (shouldRegenerate) button.addActionListener(listener);
+                if (shouldRegenerate) {
+                    button.addActionListener(listener);
+                }
                 //button.setOpaque(true);
-                button.setForeground(tile.tileType.foregroundColor);
-                button.setBackground(tile.tileType.backgroundColor);
+                button.setForeground(tile.getTileType().getForegroundColor());
+                button.setBackground(tile.getTileType().getBackgroundColor());
                 tiles.add(tile);
                 pTiles.add(button);
             }
@@ -181,23 +230,25 @@ class View extends JFrame {
      *
      * @return true if no field is empty, false if at least one field is empty
      */
-    boolean areFieldsNotEmpty() {
-        return !tfLevelName.getText().isEmpty() && !tfLevelNameClean.getText().isEmpty()
+    public boolean areFieldsNotEmpty() {
+        return !tfLevelName.getText().isEmpty()
+                && !tfLevelNameClean.getText().isEmpty()
                 && !spLevelTime.getValue().toString().isEmpty();
     }
 
     /**
      * Asks the user to set the amount of tile rows and tile columns.
      */
-    void askForRowsAndCols() {
+    public void askForRowsAndCols() {
         JSpinner sRows = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
         JSpinner sCols = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
         Object[] message = {
-                "Tile Rows (6-12):", sRows,
-                "Tile Cols (6-12):", sCols
+                "Tile Rows (6-10):", sRows,
+                "Tile Cols (6-10):", sCols
         };
 
-        int option = JOptionPane.showConfirmDialog(this, message, "Level Size", JOptionPane.OK_CANCEL_OPTION);
+        int option = JOptionPane.showConfirmDialog(this,
+                message, "Level Size", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             levelRows = Integer.valueOf(sRows.getValue().toString());
             levelCols = Integer.valueOf(sCols.getValue().toString());
@@ -207,8 +258,9 @@ class View extends JFrame {
     /**
      * Updates the title according to amount of tile rows/cols.
      */
-    void updateTitle() {
-        setTitle(String.format("%s v%s - Size: %d x %d", Controller.NAME, Controller.VERSION, levelRows, levelCols));
+    public void updateTitle() {
+        setTitle(String.format("%s v%s - Size: %d x %d",
+                Controller.NAME, Controller.VERSION, levelRows, levelCols));
     }
 
     /**
@@ -216,7 +268,7 @@ class View extends JFrame {
      *
      * @return the level name
      */
-    String getLevelName() {
+    public String getLevelName() {
         return tfLevelName.getText();
     }
 
@@ -225,7 +277,7 @@ class View extends JFrame {
      *
      * @return the clean level name
      */
-    String getLevelNameClean() {
+    public String getLevelNameClean() {
         return tfLevelNameClean.getText();
     }
 
@@ -234,7 +286,7 @@ class View extends JFrame {
      *
      * @return the max-level-completion time
      */
-    int getLevelTime() {
+    public int getLevelTime() {
         return Integer.parseInt(spLevelTime.getValue().toString());
     }
 
@@ -243,7 +295,7 @@ class View extends JFrame {
      *
      * @return index of the currently selected item
      */
-    int getSelectecLevelTypeIndex() {
+    public int getSelectecLevelTypeIndex() {
         return cbLevelTypes.getSelectedIndex();
     }
 
@@ -252,7 +304,7 @@ class View extends JFrame {
      *
      * @param listener the action listener
      */
-    void setExportButtonListener(ActionListener listener) {
+    void setExportButtonListener(final ActionListener listener) {
         bExport.addActionListener(listener);
     }
 
@@ -261,7 +313,7 @@ class View extends JFrame {
      *
      * @param listener the action listener
      */
-    void setSettingsButtonListener(ActionListener listener) {
+    void setSettingsButtonListener(final ActionListener listener) {
         bSettings.addActionListener(listener);
     }
 
@@ -270,7 +322,7 @@ class View extends JFrame {
      *
      * @return the list of tiles
      */
-    List<Tile> getTiles() {
+    public List<Tile> getTiles() {
         return tiles;
     }
 

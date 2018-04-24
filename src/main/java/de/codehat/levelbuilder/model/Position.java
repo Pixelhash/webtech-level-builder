@@ -1,4 +1,4 @@
-package de.codehat.levelbuilder;
+package de.codehat.levelbuilder.model;
 
 import com.google.gson.annotations.Expose;
 
@@ -10,13 +10,13 @@ import com.google.gson.annotations.Expose;
 class Position {
 
     /**
-     * x-coordinate
+     * X-coordinate.
      */
     @Expose
     private int row;
 
     /**
-     * y-coordinate
+     * Y-coordinate.
      */
     @Expose
     private int col;
@@ -27,7 +27,7 @@ class Position {
      * @param row as x-coordinate
      * @param col as y-coordinate
      */
-    Position(int row, int col) {
+    Position(final int row, final int col) {
         this.row = row;
         this.col = col;
     }

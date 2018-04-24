@@ -1,4 +1,6 @@
-package de.codehat.levelbuilder;
+package de.codehat.levelbuilder.listener;
+
+import de.codehat.levelbuilder.View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +11,10 @@ import java.awt.event.ActionListener;
  *
  * @author Marc-Niclas H. (codehat)
  */
-public class SettingsListener implements ActionListener {
+public final class SettingsListener implements ActionListener {
 
     /**
-     * the view instance
+     * The view instance.
      */
     private View view;
 
@@ -22,12 +24,12 @@ public class SettingsListener implements ActionListener {
      *
      * @param view the view
      */
-    SettingsListener(View view) {
+    public SettingsListener(final View view) {
         this.view = view;
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(final ActionEvent actionEvent) {
         view.askForRowsAndCols();
         view.generateTileButtons(true);
         view.revalidate();

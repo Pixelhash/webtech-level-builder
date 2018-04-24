@@ -1,6 +1,11 @@
 package de.codehat.levelbuilder;
 
-import javax.swing.*;
+import de.codehat.levelbuilder.listener.ExportButtonListener;
+import de.codehat.levelbuilder.listener.SettingsListener;
+import de.codehat.levelbuilder.listener.TileButtonListener;
+import de.codehat.levelbuilder.model.Tile;
+
+import javax.swing.SwingUtilities;
 
 /**
  * Represents the controller of the level builder.
@@ -10,32 +15,32 @@ import javax.swing.*;
 public class Controller {
 
     /**
-     * program name
+     * Program name.
      */
     static final String NAME = "LevelBuilder";
 
     /**
-     * program version
+     * Program version.
      */
     static final String VERSION = "1.1.0";
 
     /**
-     * window width
+     * Window width.
      */
     private static final int WIDTH = 500;
 
     /**
-     * window height
+     * Window height.
      */
     private static final int HEIGHT = 600;
 
     /**
-     * amount of tile rows
+     * Amount of tile rows.
      */
     private static final int DEFAULT_LEVEL_ROWS = 8;
 
     /**
-     * amount of tile columns
+     * Amount of tile columns.
      */
     private static final int DEFAULT_LEVEL_COLS = 8;
 
@@ -44,19 +49,12 @@ public class Controller {
      *
      * @param args program arguments
      */
-    public static void main(String[] args) {
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException e) {
-//            System.err.println("Unable to get and set look and feel of this system!");
-//            e.printStackTrace();
-//        }
-
+    public static void main(final String[] args) {
         SwingUtilities.invokeLater(Controller::new);
     }
 
     /**
-     * The view instance
+     * The view instance.
      */
     private View view;
 
@@ -79,7 +77,7 @@ public class Controller {
         TileButtonListener tileButtonListener = new TileButtonListener(view);
 
         view.getTiles().stream()
-                .map(tile -> tile.button)
+                .map(Tile::getButton)
                 .forEach(button -> button.addActionListener(tileButtonListener));
 
         view.setExportButtonListener(new ExportButtonListener(view));
@@ -87,7 +85,7 @@ public class Controller {
     }
 
     /**
-     * Returns the view instance
+     * Returns the view instance.
      *
      * @return the view
      */
