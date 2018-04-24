@@ -6,12 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+## [1.1.0] - 2018-04-24
+### Added
 - Added name and version of program to window title.
 - Added some padding to input elements.
 - Added specific tile type colors to tile buttons.
 - Added .json file extension filter and a generated file name to "Export" dialog.
 - Added possibility to change amount of tile rows/columns (default is 8 x 8).
 - Added amount of tile rows/columns to window title.
+- Added more test methods.
 
 ### Changed
 - Enclosed and outsourced level export function to "Level" class.
@@ -24,3 +30,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Initial release.
 
 [Unreleased]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.0.0...HEAD
+[1.1.0]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.0.0...v1.1.0
