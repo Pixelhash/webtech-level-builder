@@ -4,7 +4,7 @@
 
 [![Build Status][travis-image]][travis-url]
 
-Dieses Repo enthält einen Level Editor, welcher für das WebTechnologien-Projekt
+Dieses Repo enthält einen Level Editor, welcher für das Web-Technologien-Projekt
 erstellt wurde.
 
 Programmierung erfolgt mit [Java](https://www.java.com/de/) und [Java Swing](https://docs.oracle.com/javase/7/docs/api/javax/swing/package-summary.html).
@@ -39,7 +39,7 @@ Bitte nicht vergessen, **Tests** zu schreiben!
 
 CodeHat – [@CodeHat](https://twitter.com/CodeHat)
 
-Verfügbar unter GPL-3.0 Lizent. Siehe `LICENSE` für mehr Informationen.
+Verfügbar unter GPL-3.0 Lizenz. Siehe `LICENSE` für mehr Informationen.
 
 [https://github.com/Pixelhash](https://github.com/Pixelhash)
 
