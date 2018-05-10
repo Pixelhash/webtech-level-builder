@@ -47,7 +47,7 @@ public final class TileButtonListener implements ActionListener {
 
         Tile tile = tileOptional.get();
         TileType tileType = TileType.fromIndex(
-                view.getSelectecLevelTypeIndex());
+                view.getSelectedLevelTypeIndex());
 
         // check if index exists
         if (tileType == null) {

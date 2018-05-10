@@ -299,7 +299,7 @@ public class View extends JFrame {
      *
      * @return index of the currently selected item
      */
-    public int getSelectecLevelTypeIndex() {
+    public int getSelectedLevelTypeIndex() {
         return cbLevelTypes.getSelectedIndex();
     }
 
