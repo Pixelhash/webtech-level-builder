@@ -242,6 +242,10 @@ public class View extends JFrame {
     public void askForRowsAndCols() {
         JSpinner sRows = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
         JSpinner sCols = new JSpinner(new SpinnerNumberModel(8, 6, 10, 1));
+
+        sRows.setName("rowsSpinner");
+        sCols.setName("colsSpinner");
+
         Object[] message = {
                 "Tile Rows (6-10):", sRows,
                 "Tile Cols (6-10):", sCols

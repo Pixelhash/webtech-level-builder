@@ -28,7 +28,12 @@ public enum TileType {
     /**
      * The goal.
      */
-    GOAL("g", Color.WHITE, Color.RED);
+    GOAL("g", Color.WHITE, Color.RED),
+
+    /**
+     * A fox.
+     */
+    FOX("f", Color.BLACK, Color.ORANGE);
 
     /**
      * All types as human-readable names.
@@ -37,28 +42,34 @@ public enum TileType {
             "Terrain (t)",
             "Hedge (h)",
             "Start (s)",
-            "Goal (g)"
+            "Goal (g)",
+            "Fox (f)",
     };
 
     /**
      * The index in the {@link #TYPES} array of this tile type.
      */
-    private static final int TERRAIN_INDEX = 0;
+    public static final int TERRAIN_INDEX = 0;
 
     /**
      * The index in the {@link #TYPES} array of this tile type.
      */
-    private static final int HEDGE_INDEX = 1;
+    public static final int HEDGE_INDEX = 1;
 
     /**
      * The index in the {@link #TYPES} array of this tile type.
      */
-    private static final int START_INDEX = 2;
+    public static final int START_INDEX = 2;
 
     /**
      * The index in the {@link #TYPES} array of this tile type.
      */
-    private static final int GOAL_INDEX = 3;
+    public static final int GOAL_INDEX = 3;
+
+    /**
+     * The index in the {@link #TYPES} array of this tile type.
+     */
+    public static final int FOX_INDEX = 4;
 
     /**
      * Short name of a type.
@@ -154,6 +165,9 @@ public enum TileType {
                 break;
             case GOAL_INDEX:
                 ret = TileType.GOAL;
+                break;
+            case FOX_INDEX:
+                ret = TileType.FOX;
                 break;
             default:
                 ret = null;
