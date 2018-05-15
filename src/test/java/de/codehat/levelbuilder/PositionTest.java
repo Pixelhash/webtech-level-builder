@@ -22,11 +22,11 @@ public class PositionTest {
 
     @Test
     public void positionValuesCorrect() {
-        int x = 5;
-        int y = 2;
+        int row = 5;
+        int col = 2;
 
-        assertEquals(x, position.getRow());
-        assertEquals(y, position.getCol());
+        assertEquals(row, position.getRow());
+        assertEquals(col, position.getCol());
     }
 
     @Test(expected = Position.PositionInvalidException.class)

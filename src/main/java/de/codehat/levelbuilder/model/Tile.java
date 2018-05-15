@@ -33,14 +33,14 @@ public final class Tile {
     /**
      * Creates a new tile.
      *
-     * @param x x-coordinate of this tile
-     * @param y y-coordinate of this tile
+     * @param row row-coordinate of this tile
+     * @param col col-coordinate of this tile
      * @param button the button of this tile in the GUI
      * @param tileType the type of this tile
      */
-    public Tile(final int x, final int y, final JButton button,
+    public Tile(final int row, final int col, final JButton button,
          final TileType tileType) {
-        this.position = new Position(x, y);
+        this.position = new Position(row, col);
         this.button = button;
         this.tileType = tileType;
     }

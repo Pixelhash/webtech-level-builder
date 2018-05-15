@@ -10,7 +10,7 @@ import com.google.gson.annotations.Expose;
 public final class Position {
 
     /**
-     * Thrown if the x or y coordinate are invalid (e.g. negative).
+     * Thrown if the row or col coordinate are invalid (e.g. negative).
      *
      * @author Marc-Niclas H. (codehat)
      */
@@ -25,13 +25,13 @@ public final class Position {
     }
 
     /**
-     * X-coordinate.
+     * row-coordinate.
      */
     @Expose
     private int row;
 
     /**
-     * Y-coordinate.
+     * col-coordinate.
      */
     @Expose
     private int col;
@@ -39,8 +39,8 @@ public final class Position {
     /**
      * Creates a new position with two coordinates.
      *
-     * @param row as x-coordinate
-     * @param col as y-coordinate
+     * @param row the row-coordinate
+     * @param col the col-coordinate
      */
     public Position(final int row, final int col) {
         if (row < 0 || col < 0) {
@@ -52,36 +52,36 @@ public final class Position {
     }
 
     /**
-     * Returns the x-coordinate.
+     * Returns the row-coordinate.
      *
-     * @return the x-coordinate
+     * @return the row-coordinate
      */
     public int getRow() {
         return row;
     }
 
     /**
-     * Sets the x-coordinate.
+     * Sets the row-coordinate.
      *
-     * @param row the x-coordinate
+     * @param row the row-coordinate
      */
     public void setRow(final int row) {
         this.row = row;
     }
 
     /**
-     * Returns the y-coordinate.
+     * Returns the col-coordinate.
      *
-     * @return the y-coordinate
+     * @return the col-coordinate
      */
     public int getCol() {
         return col;
     }
 
     /**
-     * Sets the y-coordinate.
+     * Sets the col-coordinate.
      *
-     * @param col the y-coordinate
+     * @param col the col-coordinate
      */
     public void setCol(final int col) {
         this.col = col;
@@ -98,6 +98,6 @@ public final class Position {
 
     @Override
     public String toString() {
-        return String.format("{ X: %d, Y: %d }", row, col);
+        return String.format("{ Row: %d, Col: %d }", row, col);
     }
 }

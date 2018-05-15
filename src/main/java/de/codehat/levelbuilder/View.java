@@ -208,11 +208,11 @@ public class View extends JFrame {
             pTiles.setLayout(new GridLayout(levelRows, levelCols));
         }
 
-        for (int x = 0; x < levelRows; x++) {
-            for (int y = 0; y < levelCols; y++) {
+        for (int row = 0; row < levelRows; row++) {
+            for (int col = 0; col < levelCols; col++) {
                 JButton button = new JButton("t");
-                Tile tile = new Tile(x, y, button, TileType.TERRAIN);
-                button.setName("tileButton" + x + y);
+                Tile tile = new Tile(row, col, button, TileType.TERRAIN);
+                button.setName("tileButton" + row + col);
                 if (shouldRegenerate) {
                     button.addActionListener(listener);
                 }
