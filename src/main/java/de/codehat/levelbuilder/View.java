@@ -13,8 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.BorderFactory;
 import javax.swing.SpinnerNumberModel;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class View extends JFrame {
     /**
      * Amount of rows for {@link #pFields} panel.
      */
-    private static final int FIELDS_PANEL_ROWS = 2;
+    private static final int FIELDS_PANEL_ROWS = 3;
 
     /**
      * Amount of columns for {@link #pFields} panel.
@@ -66,6 +65,11 @@ public class View extends JFrame {
      * Textfield for the clean level name.
      */
     private JTextField tfLevelNameClean;
+
+    /**
+     * Textfield for the level description.
+     */
+    private JTextField tfLevelDescription;
 
     /**
      * Field for the max-level-completion time.
@@ -144,7 +148,7 @@ public class View extends JFrame {
                 PANEL_BORDER_SIZE,
                 PANEL_BORDER_SIZE
         ));
-        pFields.setLayout(pFieldsGrid);
+        pFields.setLayout(new GridBagLayout()); //(pFieldsGrid);
         add(pFields, BorderLayout.PAGE_START);
 
         // tile buttons panel
@@ -159,35 +163,82 @@ public class View extends JFrame {
         add(pTiles, BorderLayout.CENTER);
 
         // level name
+        GridBagConstraints tfLevelNameConst = new GridBagConstraints();
+        tfLevelNameConst.fill = GridBagConstraints.NONE;
+        tfLevelNameConst.insets = new Insets(3, 3, 3, 3);
+        tfLevelNameConst.anchor = GridBagConstraints.FIRST_LINE_START;
+        tfLevelNameConst.gridx  = 0;
+        tfLevelNameConst.gridy = 0;
         tfLevelName = new JTextField("level_name");
         tfLevelName.setName("levelName");
-        pFields.add(tfLevelName);
+        pFields.add(tfLevelName, tfLevelNameConst);
 
         // level name clean
+        GridBagConstraints tfLevelNameCleanConst = new GridBagConstraints();
+        tfLevelNameCleanConst.fill = GridBagConstraints.NONE;
+        tfLevelNameCleanConst.insets = new Insets(3, 3, 3, 3);
+        tfLevelNameCleanConst.anchor = GridBagConstraints.CENTER;
+        tfLevelNameCleanConst.gridx  = 1;
+        tfLevelNameCleanConst.gridy = 0;
         tfLevelNameClean = new JTextField("Level Name Clean");
         tfLevelNameClean.setName("levelNameClean");
-        pFields.add(tfLevelNameClean);
+        pFields.add(tfLevelNameClean, tfLevelNameCleanConst);
+
+        // level description
+        GridBagConstraints tfLevelDescriptionConst = new GridBagConstraints();
+        tfLevelDescriptionConst.fill = GridBagConstraints.NONE;
+        tfLevelDescriptionConst.insets = new Insets(3, 3, 3, 3);
+        tfLevelDescriptionConst.anchor = GridBagConstraints.FIRST_LINE_END;
+        tfLevelDescriptionConst.gridx  = 2;
+        tfLevelDescriptionConst.gridy = 0;
+        tfLevelDescription = new JTextField("Level Description");
+        tfLevelDescription.setName("levelDescription");
+        pFields.add(tfLevelDescription, tfLevelDescriptionConst);
 
         // level time
+        GridBagConstraints spLevelTimeConst = new GridBagConstraints();
+        spLevelTimeConst.fill = GridBagConstraints.NONE;
+        spLevelTimeConst.insets = new Insets(3, 3, 3, 3);
+        spLevelTimeConst.anchor = GridBagConstraints.FIRST_LINE_START;
+        spLevelTimeConst.gridx  = 0;
+        spLevelTimeConst.gridy = 1;
         spLevelTime = new JSpinner(new SpinnerNumberModel(15, 1, 120, 1));
         spLevelTime.setName("levelTime");
-        pFields.add(spLevelTime);
+        pFields.add(spLevelTime, spLevelTimeConst);
 
         // level types
+        GridBagConstraints cbLevelTypesConst = new GridBagConstraints();
+        cbLevelTypesConst.fill = GridBagConstraints.NONE;
+        cbLevelTypesConst.insets = new Insets(3, 3, 3, 3);
+        cbLevelTypesConst.anchor = GridBagConstraints.CENTER;
+        cbLevelTypesConst.gridx  = 1;
+        cbLevelTypesConst.gridy = 1;
         cbLevelTypes = new JComboBox<>(TileType.TYPES);
         cbLevelTypes.setName("levelTypes");
         cbLevelTypes.setSelectedIndex(0);
-        pFields.add(cbLevelTypes);
+        pFields.add(cbLevelTypes, cbLevelTypesConst);
 
         // export level button
+        GridBagConstraints bExportConst = new GridBagConstraints();
+        bExportConst.fill = GridBagConstraints.NONE;
+        bExportConst.insets = new Insets(3, 3, 3, 3);
+        bExportConst.anchor = GridBagConstraints.FIRST_LINE_START;
+        bExportConst.gridx  = 0;
+        bExportConst.gridy = 2;
         bExport = new JButton("Export");
         bExport.setName("exportButton");
-        pFields.add(bExport);
+        pFields.add(bExport, bExportConst);
 
         // settingsButton
+        GridBagConstraints bSettingsConst = new GridBagConstraints();
+        bSettingsConst.fill = GridBagConstraints.NONE;
+        bSettingsConst.insets = new Insets(3, 3, 3, 3);
+        bSettingsConst.anchor = GridBagConstraints.CENTER;
+        bSettingsConst.gridx  = 1;
+        bSettingsConst.gridy = 2;
         bSettings = new JButton("Settings");
         bSettings.setName("settingsButton");
-        pFields.add(bSettings);
+        pFields.add(bSettings, bSettingsConst);
 
         generateTileButtons(false);
     }
@@ -283,6 +334,15 @@ public class View extends JFrame {
      */
     public String getLevelNameClean() {
         return tfLevelNameClean.getText();
+    }
+
+    /**
+     * Returns the level description.
+     *
+     * @return the level description
+     */
+    public String getLevelDescription() {
+        return tfLevelDescription.getText();
     }
 
     /**

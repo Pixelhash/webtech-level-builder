@@ -31,6 +31,12 @@ public final class Level {
     private String nameClean;
 
     /**
+     * Level description (should be not more than 20-40 characters).
+     */
+    @Expose
+    private String description;
+
+    /**
      * Max time to complete the level.
      */
     @Expose
@@ -125,6 +131,15 @@ public final class Level {
      */
     public void setNameClean(final String nameClean) {
         this.nameClean = nameClean;
+    }
+
+    /**
+     * Sets the level description.
+     *
+     * @param description the level description to set
+     */
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
     /**

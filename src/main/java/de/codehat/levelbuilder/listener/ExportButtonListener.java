@@ -68,6 +68,7 @@ public final class ExportButtonListener implements ActionListener {
         // set level
         level.setName(view.getLevelName());
         level.setNameClean(view.getLevelNameClean());
+        level.setDescription(view.getLevelDescription());
         level.setTime(view.getLevelTime());
         level.setPossibleGoals(Math.toIntExact(goals));
         level.setRows(view.getLevelRows());
