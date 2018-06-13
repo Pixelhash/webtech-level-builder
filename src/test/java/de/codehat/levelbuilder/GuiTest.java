@@ -27,15 +27,15 @@ public class GuiTest extends AssertJSwingJUnitTestCase {
 
     @Test
     public void clickExportButtonWithoutGoal() {
-        window.button("exportButton").click();
+        window.menuItem("saveFileItem").click();
         window.optionPane().requireErrorMessage();
     }
 
     @Test
     public void clickExportButtonWithOneGoal() {
-        window.comboBox("levelTypes").selectItem(TileType.GOAL_INDEX);
+        window.comboBox("tileTypes").selectItem(TileType.GOAL_INDEX);
         window.button(getTileButton(0, 0)).click();
-        window.button("exportButton").click();
+        window.menuItem("saveFileItem").click();
         window.dialog().requireModal();
     }
 
@@ -43,7 +43,7 @@ public class GuiTest extends AssertJSwingJUnitTestCase {
     public void clickTileWithTerrainOption() {
         JButtonFixture tileButton = window.button(getTileButton(0, 0));
 
-        window.comboBox("levelTypes").selectItem(TileType.TERRAIN_INDEX);
+        window.comboBox("tileTypes").selectItem(TileType.TERRAIN_INDEX);
         tileButton.click();
 
         assertEquals("t", tileButton.text());
@@ -53,7 +53,7 @@ public class GuiTest extends AssertJSwingJUnitTestCase {
     public void clickTileWithHedgeOption() {
         JButtonFixture tileButton = window.button(getTileButton(0, 0));
 
-        window.comboBox("levelTypes").selectItem(TileType.HEDGE_INDEX);
+        window.comboBox("tileTypes").selectItem(TileType.HEDGE_INDEX);
         tileButton.click();
 
         assertEquals("h", tileButton.text());
@@ -63,18 +63,20 @@ public class GuiTest extends AssertJSwingJUnitTestCase {
     public void clickTileWithStartOption() {
         JButtonFixture tileButton = window.button(getTileButton(0, 0));
 
-        window.comboBox("levelTypes").selectItem(TileType.START_INDEX);
+        window.comboBox("tileTypes").selectItem(TileType.RABBIT_INDEX);
         tileButton.click();
 
-        assertEquals("s", tileButton.text());
+        assertEquals("r", tileButton.text());
     }
 
     @Test
     public void clickTileWithFoxOption() {
         JButtonFixture tileButton = window.button(getTileButton(0, 0));
 
-        window.comboBox("levelTypes").selectItem(TileType.FOX_INDEX);
+        window.comboBox("tileTypes").selectItem(TileType.FOX_INDEX);
         tileButton.click();
+
+        window.optionPane().okButton().click();
 
         assertEquals("f", tileButton.text());
     }
@@ -89,10 +91,10 @@ public class GuiTest extends AssertJSwingJUnitTestCase {
     public void changeLevelSize() {
         window.button("settingsButton").click();
         window.optionPane().spinner("rowsSpinner").enterText("6");
-        window.optionPane().spinner("colsSpinner").enterText("6");
+        window.optionPane().spinner("colsSpinner").enterText("7");
         window.optionPane().okButton().click();
 
-        assertEquals(36, controller.getView().getTiles().size());
+        assertEquals(42, controller.getModel().getTiles().length * controller.getModel().getTiles()[0].length);
     }
 
 }

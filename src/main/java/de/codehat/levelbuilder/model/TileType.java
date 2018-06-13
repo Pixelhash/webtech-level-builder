@@ -21,9 +21,9 @@ public enum TileType {
     HEDGE("h", Color.BLACK, Color.GREEN),
 
     /**
-     * The start.
+     * The rabbit (start point).
      */
-    START("s", Color.WHITE, Color.BLUE),
+    RABBIT("r", Color.BLACK, Color.WHITE),
 
     /**
      * The goal.
@@ -41,7 +41,7 @@ public enum TileType {
     public static final String[] TYPES = {
             "Terrain (t)",
             "Hedge (h)",
-            "Start (s)",
+            "Rabbit (r)",
             "Goal (g)",
             "Fox (f)",
     };
@@ -59,7 +59,7 @@ public enum TileType {
     /**
      * The index in the {@link #TYPES} array of this tile type.
      */
-    public static final int START_INDEX = 2;
+    public static final int RABBIT_INDEX = 2;
 
     /**
      * The index in the {@link #TYPES} array of this tile type.
@@ -160,8 +160,8 @@ public enum TileType {
             case HEDGE_INDEX:
                 ret = TileType.HEDGE;
                 break;
-            case START_INDEX:
-                ret = TileType.START;
+            case RABBIT_INDEX:
+                ret = TileType.RABBIT;
                 break;
             case GOAL_INDEX:
                 ret = TileType.GOAL;

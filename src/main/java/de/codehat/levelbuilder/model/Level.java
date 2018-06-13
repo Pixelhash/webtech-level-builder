@@ -19,51 +19,33 @@ import java.util.Arrays;
 public final class Level {
 
     /**
-     * Level name (internal name).
+     * Level name.
      */
-    @Expose
     private String name;
-
-    /**
-     * Level name clean (human-readable).
-     */
-    @Expose
-    private String nameClean;
 
     /**
      * Level description (should be not more than 20-40 characters).
      */
-    @Expose
     private String description;
 
     /**
      * Max time to complete the level.
      */
-    @Expose
     private int time;
-
-    /**
-     * Amount of goals in this level.
-     */
-    @Expose
-    private int possibleGoals;
 
     /**
      * Amount of tile rows.
      */
-    @Expose
     private int rows;
 
     /**
      * Amount of tile columns.
      */
-    @Expose
     private int cols;
 
     /**
      * Array of tiles representing the level itself.
      */
-    @Expose
     private Tile[] tiles;
 
     /**
@@ -76,7 +58,6 @@ public final class Level {
         // build JSON string
         final GsonBuilder builder = new GsonBuilder();
         final Gson gson = builder
-                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .create();
 
@@ -116,21 +97,12 @@ public final class Level {
     }
 
     /**
-     * Returns the human-readable level name.
+     * Returns the level description.
      *
-     * @return the human-readable level name
+     * @return the level description
      */
-    public String getNameClean() {
-        return nameClean;
-    }
-
-    /**
-     * Sets the human-readable level name.
-     *
-     * @param nameClean the human-readable level name to set
-     */
-    public void setNameClean(final String nameClean) {
-        this.nameClean = nameClean;
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -158,24 +130,6 @@ public final class Level {
      */
     public void setTime(final int time) {
         this.time = time;
-    }
-
-    /**
-     * Returns the amount of possible goals in this level.
-     *
-     * @return the amount of possible goals
-     */
-    public int getPossibleGoals() {
-        return possibleGoals;
-    }
-
-    /**
-     * Sets the amount of possible goals in this level.
-     *
-     * @param possibleGoals the amount of possible goals to set
-     */
-    public void setPossibleGoals(final int possibleGoals) {
-        this.possibleGoals = possibleGoals;
     }
 
     /**
@@ -238,8 +192,7 @@ public final class Level {
             return false;
         }
         Level l = (Level) o;
-        return name.equals(l.getName()) && nameClean.equals(l.getNameClean())
-                && time == l.getTime() && possibleGoals == l.getPossibleGoals()
+        return name.equals(l.getName()) && time == l.getTime()
                 && rows == l.getRows() && cols == l.getCols()
                 && Arrays.deepEquals(tiles, l.getTiles());
     }

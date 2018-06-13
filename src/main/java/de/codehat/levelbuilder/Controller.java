@@ -1,9 +1,6 @@
 package de.codehat.levelbuilder;
 
-import de.codehat.levelbuilder.listener.ExportButtonListener;
-import de.codehat.levelbuilder.listener.SettingsListener;
-import de.codehat.levelbuilder.listener.TileButtonListener;
-import de.codehat.levelbuilder.model.Tile;
+import de.codehat.levelbuilder.listener.*;
 
 import javax.swing.SwingUtilities;
 
@@ -37,12 +34,12 @@ public class Controller {
     /**
      * Amount of tile rows.
      */
-    private static final int DEFAULT_LEVEL_ROWS = 8;
+    public static final int DEFAULT_LEVEL_ROWS = 8;
 
     /**
      * Amount of tile columns.
      */
-    private static final int DEFAULT_LEVEL_COLS = 8;
+    public static final int DEFAULT_LEVEL_COLS = 8;
 
     /**
      * Initiates the level builder.
@@ -58,14 +55,23 @@ public class Controller {
      */
     private View view;
 
+
+    /**
+     * The model instance.
+     */
+    private Model model;
+
     /**
      * Creates the controller of the level builder.
      */
     Controller() {
         view = new View(WIDTH, HEIGHT, DEFAULT_LEVEL_ROWS, DEFAULT_LEVEL_COLS);
+        model = new Model(DEFAULT_LEVEL_ROWS, DEFAULT_LEVEL_COLS);
 
+        setTileButtonListener();
         setViewListener();
 
+        view.updateTileButtons(model);
         view.updateTitle();
         view.setVisible(true);
     }
@@ -74,22 +80,39 @@ public class Controller {
      * Sets the action listener of the buttons from the view.
      */
     private void setViewListener() {
-        TileButtonListener tileButtonListener = new TileButtonListener(view);
+        view.setFileMenuNewListener(new NewLevelButtonListener(view, model, this));
+        view.setFileMenuLoadListener(new LoadLevelButtonListener(view, model, this));
+        view.setFileMenuSaveListener(new ExportLevelButtonListener(view, model));
+        view.setSettingsButtonListener(new SettingsListener(view, model, this));
 
-        view.getTiles().stream()
-                .map(Tile::getButton)
-                .forEach(button -> button.addActionListener(tileButtonListener));
+        // File Menu
+        view.setFileMenuExitListener((a) -> System.exit(0));
+    }
 
-        view.setExportButtonListener(new ExportButtonListener(view));
-        view.setSettingsButtonListener(new SettingsListener(view));
+    public void setTileButtonListener() {
+        // Attach a listener to each tile button with its position
+        for (int row = 0; row < view.getTileButtons().length; row++) {
+            for (int col = 0; col < view.getTileButtons()[row].length; col++) {
+                view.getTileButtons()[row][col].addActionListener(new TileButtonListener(view, model, row, col));
+            }
+        }
     }
 
     /**
      * Returns the view instance.
      *
-     * @return the view
+     * @return the view instance
      */
     View getView() {
         return view;
+    }
+
+    /**
+     * Returns the model instance.
+     *
+     * @return the model instance
+     */
+    Model getModel() {
+        return model;
     }
 }

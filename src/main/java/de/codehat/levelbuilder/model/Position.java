@@ -27,13 +27,11 @@ public final class Position {
     /**
      * row-coordinate.
      */
-    @Expose
     private int row;
 
     /**
      * col-coordinate.
      */
-    @Expose
     private int col;
 
     /**

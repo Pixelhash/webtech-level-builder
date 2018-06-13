@@ -13,7 +13,7 @@ public class TileTest {
 
     @Before
     public void setUp() {
-        tile = new Tile(4, 2, null, TileType.TERRAIN);
+        tile = new Tile(4, 2, TileType.TERRAIN);
     }
 
     @Test
@@ -37,17 +37,12 @@ public class TileTest {
 
     @Test
     public void tileTypeNotNull() {
-        assertNotNull(tile.getTileType());
+        assertNotNull(tile.getType());
     }
 
     @Test
     public void tileTypeCorrect() {
-        assertEquals(TileType.TERRAIN, tile.getTileType());
-    }
-
-    @Test
-    public void tileButtonIsNull() {
-        assertNull(tile.getButton());
+        assertEquals(TileType.TERRAIN, tile.getType());
     }
 
 }

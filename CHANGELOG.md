@@ -6,10 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Added fox as tile type.
-- Added a new level input field called `description`.
 
 ### Changed
+
+## [1.2.0] - 2018-06-13
+### Added
+- Added fox as tile type with an option to set its movement type.
+- Added a new level input field called `description`.
+- Added a menu with possibility to create and load a level as well as an exit button.
+
+### Changed
+- The "Start" tile is know called "Rabbit" and has the background color white instead of blue.
+- Revamped GUI.
+- Default selected tile type is now "Hedge". 
 
 ## [1.1.0] - 2018-04-24
 ### Added
@@ -31,5 +40,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.0.0...v1.1.0
