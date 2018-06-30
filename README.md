@@ -9,6 +9,10 @@ erstellt wurde.
 
 Programmierung erfolgt mit [Java](https://www.java.com/de/) und [Java Swing](https://docs.oracle.com/javase/7/docs/api/javax/swing/package-summary.html).
 
+## Screenshots
+
+![Main Window](/assets/screenshots/main_window.png?raw=true "Main Window")
+
 ## Bauen
 
 Linux, OS X & Windows:
