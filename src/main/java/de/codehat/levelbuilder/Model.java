@@ -3,6 +3,8 @@ package de.codehat.levelbuilder;
 import de.codehat.levelbuilder.model.Tile;
 import de.codehat.levelbuilder.model.TileType;
 
+import java.io.File;
+
 /**
  * Represents the model of the level builder.
  *
@@ -15,6 +17,16 @@ public class Model {
      * Position in array equals position in level.
      */
     private Tile[][] tiles;
+
+    /**
+     * Holds the last save path.
+     */
+    public File lastSavePath;
+
+    /**
+     * Holds the last load path.
+     */
+    public File lastLoadPath;
 
     /**
      * Creates a new model.

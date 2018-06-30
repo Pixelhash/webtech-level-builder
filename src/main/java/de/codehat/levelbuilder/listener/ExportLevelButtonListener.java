@@ -101,12 +101,21 @@ public final class ExportLevelButtonListener implements ActionListener {
 
         // open save file dialog
         JFileChooser jFileChooser = new JFileChooser();
+
+        // If already saved a level, while open, use the same path again.
+        if (model.lastSavePath != null) {
+            jFileChooser.setCurrentDirectory(model.lastSavePath);
+        }
+
         jFileChooser.setSelectedFile(new File(level.getName().toLowerCase().replaceAll(" +", "_") + ".json"));
         jFileChooser.setFileFilter(
                 new FileNameExtensionFilter("JSON level file", "json"));
         if (jFileChooser.showSaveDialog(view) == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser.getSelectedFile();
             if (level.export(file)) {
+
+                model.lastSavePath = file;
+                model.lastLoadPath = file;
                 JOptionPane.showMessageDialog(view,
                         "Saved file to " + file.getAbsolutePath());
             } else {

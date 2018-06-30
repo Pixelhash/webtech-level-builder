@@ -58,8 +58,13 @@ public final class LoadLevelButtonListener implements ActionListener {
 
     @Override
     public void actionPerformed(final ActionEvent event) {
-
         JFileChooser chooser = new JFileChooser();
+
+        // If already loaded a level, while open, use the same path again.
+        if (model.lastLoadPath != null) {
+            chooser.setCurrentDirectory(model.lastLoadPath);
+        }
+
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON level file", "json");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(null);
@@ -86,12 +91,14 @@ public final class LoadLevelButtonListener implements ActionListener {
                 view.updateTileButtons(model);
                 view.revalidate();
                 view.repaint();
+
+                model.lastLoadPath = chooser.getSelectedFile();
+                model.lastSavePath = chooser.getSelectedFile();
             } catch (FileNotFoundException e) {
                 JOptionPane.showMessageDialog(view,
                         "Unable to open file!",
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
-                return;
             }
         }
     }

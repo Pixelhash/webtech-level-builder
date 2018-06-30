@@ -17,13 +17,37 @@ public class Tile {
      */
     private TileType type;
 
+    /* ==================================================== */
+
     /**
      * The movement type of this type, if it's an enemy.
      * *EXTENSION ATTRIBUTE* -> Can be null!
      */
     private EnemyMovementType enemyMovementType;
 
+    /* ==================================================== */
+
     /**
+     * The appear chance of a speed power-up (carrot).
+     * *EXTENSION ATTRIBUTE* -> Can be null!
+     */
+    private Double appearChance;
+
+    /**
+     * The time how long the speed power-up is on the field.
+     * *EXTENSION ATTRIBUTE* -> Can be null!
+     */
+    private Integer timeOnField;
+
+    /**
+     * The speed increase of the rabbit, if it collects the power-up.
+     * *EXTENSION ATTRIBUTE* -> Can be null!
+     */
+    private Integer speedIncrease;
+
+    /* ==================================================== */
+
+     /**
      * Creates a new tile.
      *
      * @param row row-coordinate of this tile
@@ -36,7 +60,7 @@ public class Tile {
     }
 
     /**
-     * Creates a new tile.
+     * Creates a new tile with the enemy extensions.
      *
      * @param row row-coordinate of this tile
      * @param col col-coordinate of this tile
@@ -47,6 +71,24 @@ public class Tile {
         this.position = new Position(row, col);
         this.type = type;
         this.enemyMovementType = enemyMovementType;
+    }
+
+    /**
+     * Creates a new tile with the speed power-up extensions.
+     *
+     * @param row row-coordinate of this tile
+     * @param col col-coordinate of this tile
+     * @param type the type of this tile
+     * @param appearChance the chance that this power-up appears on the field.
+     * @param timeOnField the time the power-up stays on the field.
+     * @param speedIncrease the speed increase of the rabbit, if it collects the power-up.
+     */
+    public Tile(final int row, final int col, final TileType type, double appearChance, int timeOnField, int speedIncrease) {
+        this.position = new Position(row, col);
+        this.type = type;
+        this.appearChance = appearChance;
+        this.timeOnField = timeOnField;
+        this.speedIncrease = speedIncrease;
     }
 
     /**
@@ -101,6 +143,60 @@ public class Tile {
      */
     public void setEnemyMovementType(EnemyMovementType enemyMovementType) {
         this.enemyMovementType = enemyMovementType;
+    }
+
+    /**
+     * Returns the appear chance of a speed power-up.
+     *
+     * @return the appear chance.
+     */
+    public Double getAppearChance() {
+        return appearChance;
+    }
+
+    /**
+     * Sets the appear chance of a speed power-up.
+     *
+     * @param appearChance the appear chance of a speed power-up.
+     */
+    public void setAppearChance(Double appearChance) {
+        this.appearChance = appearChance;
+    }
+
+    /**
+     * Returns the time the speed power-up stays on the field.
+     *
+     * @return the time the power-up stays on the field.
+     */
+    public Integer getTimeOnField() {
+        return timeOnField;
+    }
+
+    /**
+     * Sets the time the speed power-up stays on the field.
+     *
+     * @param timeOnField the time the speed power-up stays on the field.
+     */
+    public void setTimeOnField(Integer timeOnField) {
+        this.timeOnField = timeOnField;
+    }
+
+    /**
+     * Returns the speed increase of the rabbit, if it collects the speed power-up.
+     *
+     * @return the speed increase of the rabbit, if it collects the speed power-up.
+     */
+    public Integer getSpeedIncrease() {
+        return speedIncrease;
+    }
+
+    /**
+     * Sets the speed increase of the rabbit, if it collects the speed power-up.
+     *
+     * @param speedIncrease the speed power-up of the rabbit, if it collects the speed power-up.
+     */
+    public void setSpeedIncrease(Integer speedIncrease) {
+        this.speedIncrease = speedIncrease;
     }
 
     @Override

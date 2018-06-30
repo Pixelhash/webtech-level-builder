@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+## [1.3.0] - 2018-06-30
+### Added
+- Added speed power-up as tile type with an option to set its additional details.
+- Added a help menu with an "About" button to view additional information about the program.
+- Added more tests. 
+
+### Changed
+- After saving or loading a file, the file's path is saved and used as base path, if another level is loaded or saved.
+
 ## [1.2.0] - 2018-06-13
 ### Added
 - Added fox as tile type with an option to set its movement type.
@@ -40,6 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/Pixelhash/webtech-level-builder/compare/v1.0.0...v1.1.0

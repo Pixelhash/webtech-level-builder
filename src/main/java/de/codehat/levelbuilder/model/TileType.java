@@ -31,9 +31,14 @@ public enum TileType {
     GOAL("g", Color.WHITE, Color.RED),
 
     /**
-     * A fox.
+     * The fox.
      */
-    FOX("f", Color.BLACK, Color.ORANGE);
+    FOX("f", Color.BLACK, Color.ORANGE),
+
+    /**
+     * The speed power-up.
+     */
+    SPEED_POWERUP("sp", Color.BLACK, Color.YELLOW);
 
     /**
      * All types as human-readable names.
@@ -44,6 +49,7 @@ public enum TileType {
             "Rabbit (r)",
             "Goal (g)",
             "Fox (f)",
+            "Speed Power-up (sp)",
     };
 
     /**
@@ -70,6 +76,11 @@ public enum TileType {
      * The index in the {@link #TYPES} array of this tile type.
      */
     public static final int FOX_INDEX = 4;
+
+    /**
+     * The index in the {@link #TYPES} array of this tile type.
+     */
+    public static final int SPEED_POWERUP_INDEX = 5;
 
     /**
      * Short name of a type.
@@ -168,6 +179,9 @@ public enum TileType {
                 break;
             case FOX_INDEX:
                 ret = TileType.FOX;
+                break;
+            case SPEED_POWERUP_INDEX:
+                ret = TileType.SPEED_POWERUP;
                 break;
             default:
                 ret = null;

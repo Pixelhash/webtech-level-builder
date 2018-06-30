@@ -82,9 +82,48 @@ public class GuiTest extends AssertJSwingJUnitTestCase {
     }
 
     @Test
+    public void clickTileWithSpeedPowerUpOption() {
+        JButtonFixture tileButton = window.button(getTileButton(0, 0));
+
+        window.comboBox("tileTypes").selectItem(TileType.SPEED_POWERUP_INDEX);
+        tileButton.click();
+
+        window.optionPane().okButton().click();
+
+        assertEquals("sp", tileButton.text());
+    }
+
+    @Test
     public void clickSettingsButton() {
         window.button("settingsButton").click();
         window.optionPane().requireTitle("Level Size");
+    }
+
+    @Test
+    public void clickAboutButton() {
+        window.menuItem("aboutItem").click();
+        window.optionPane().requireTitle("About");
+    }
+
+    @Test
+    public void clickNewLevelButton() {
+        window.menuItem("newFileItem").click();
+        window.optionPane().requireTitle("New Level");
+    }
+
+    @Test
+    public void clickLoadLevelButton() {
+        window.menuItem("loadFileItem").click();
+
+        window.fileChooser().requireVisible();
+    }
+
+    @Test
+    public void clickSaveLevelButton() {
+        window.menuItem("saveFileItem").click();
+
+        // Check for "Error" title here, because not all required tiles are clicked (rabbit and goal).
+        window.optionPane().requireTitle("Error");
     }
 
     @Test
@@ -96,5 +135,4 @@ public class GuiTest extends AssertJSwingJUnitTestCase {
 
         assertEquals(42, controller.getModel().getTiles().length * controller.getModel().getTiles()[0].length);
     }
-
 }

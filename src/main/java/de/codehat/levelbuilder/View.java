@@ -80,6 +80,16 @@ public class View extends JFrame {
     private JMenuItem exitProgramItem;
 
     /**
+     * The menu for help.
+     */
+    private JMenu helpMenu;
+
+    /**
+     * helpMenu: Help -> About
+     */
+    private JMenuItem aboutProgramItem;
+
+    /**
      * Textfield for the level name.
      */
     private JTextField tfLevelName;
@@ -254,6 +264,16 @@ public class View extends JFrame {
         exitProgramItem = new JMenuItem("Exit");
         exitProgramItem.setName("exitItem");
         fileMenu.add(exitProgramItem);
+
+        // helpMenu
+        helpMenu = new JMenu("Help");
+        helpMenu.setName("helpMenu");
+        menuBar.add(helpMenu);
+
+        //aboutProgramItem
+        aboutProgramItem = new JMenuItem("About");
+        aboutProgramItem.setName("aboutItem");
+        helpMenu.add(aboutProgramItem);
 
         // add menuBar
         this.setJMenuBar(menuBar);
@@ -488,6 +508,15 @@ public class View extends JFrame {
      */
     void setFileMenuExitListener(final ActionListener listener) {
         exitProgramItem.addActionListener(listener);
+    }
+
+    /**
+     * Sets the action listener of the Help -> About menu item.
+     *
+     * @param listener the action listener
+     */
+    void setHelpMenuAboutListener(final ActionListener listener) {
+        aboutProgramItem.addActionListener(listener);
     }
 
     /**

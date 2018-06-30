@@ -14,12 +14,12 @@ public class Controller {
     /**
      * Program name.
      */
-    static final String NAME = "LevelBuilder";
+    public static final String NAME = "LevelBuilder";
 
     /**
      * Program version.
      */
-    static final String VERSION = "1.2.0";
+    public static final String VERSION = "1.3.0";
 
     /**
      * Window width.
@@ -80,13 +80,17 @@ public class Controller {
      * Sets the action listener of the buttons from the view.
      */
     private void setViewListener() {
+        // Settings button
+        view.setSettingsButtonListener(new SettingsListener(view, model, this));
+
+        // File menu
         view.setFileMenuNewListener(new NewLevelButtonListener(view, model, this));
         view.setFileMenuLoadListener(new LoadLevelButtonListener(view, model, this));
         view.setFileMenuSaveListener(new ExportLevelButtonListener(view, model));
-        view.setSettingsButtonListener(new SettingsListener(view, model, this));
-
-        // File Menu
         view.setFileMenuExitListener((a) -> System.exit(0));
+
+        // Help menu
+        view.setHelpMenuAboutListener(new AboutButtonListener(view));
     }
 
     public void setTileButtonListener() {
