@@ -56,5 +56,5 @@ Verfügbar unter GPL-3.0 Lizenz. Siehe `LICENSE` für mehr Informationen.
 5. Eine neue Pull Request erstellen
 
 <!-- Markdown link & img dfn's -->
-[travis-image]: https://travis-ci.com/Pixelhash/webtech-level-builder.svg?token=cdDGJnyrMjz1Y73p6Az7&branch=master
-[travis-url]: https://travis-ci.com/Pixelhash/webtech-level-builder
+[travis-image]: https://travis-ci.com/kodehat/webtech-level-builder.svg?branch=master
+[travis-url]: https://travis-ci.com/kodehat/webtech-level-builder
